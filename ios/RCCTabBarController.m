@@ -98,14 +98,16 @@
     
     if (buttonColor)
     {
-      [viewController.tabBarItem setTitleTextAttributes:
-       @{NSForegroundColorAttributeName : buttonColor} forState:UIControlStateNormal];
+      [viewController.tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14 weight:UIFontWeightMedium],
+                                                          NSForegroundColorAttributeName : buttonColor
+                                                          } forState:UIControlStateNormal];
     }
     
     if (selectedButtonColor)
     {
-      [viewController.tabBarItem setTitleTextAttributes:
-       @{NSForegroundColorAttributeName : selectedButtonColor} forState:UIControlStateSelected];
+      [viewController.tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14 weight:UIFontWeightMedium],
+                                                          NSForegroundColorAttributeName : selectedButtonColor
+                                                          } forState:UIControlStateSelected];
     }
     
     // adject text position

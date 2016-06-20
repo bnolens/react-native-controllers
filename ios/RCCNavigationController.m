@@ -4,6 +4,12 @@
 #import "RCTEventDispatcher.h"
 #import "RCTConvert.h"
 
+@interface RCCNavigationController()
+
+@property (strong, nonatomic) UIView *navigationBackground;
+
+@end
+
 @implementation RCCNavigationController
 
 NSString const *CALLBACK_ASSOCIATED_KEY = @"RCCNavigationController.CALLBACK_ASSOCIATED_KEY";
@@ -42,7 +48,41 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
   
   self.navigationBar.translucent = NO; // default
   
+  [self initCustomNavigationBarStyle];
+  
   return self;
+}
+
+- (void) initCustomNavigationBarStyle {
+  
+  // Gradient background
+  CAGradientLayer *gradient = [CAGradientLayer layer];
+  gradient.frame = CGRectMake(0, -32, self.navigationBar.bounds.size.width, self.navigationBar.bounds.size.height+32);
+  gradient.colors = @[(id)[UIColor colorWithRed:208.f/255.f green:86.f/255.f blue:62.f/255.f alpha:1].CGColor,
+                      (id)[UIColor colorWithRed:156.f/255.f green:55.f/255.f blue:149.f/255.f alpha:1].CGColor];
+  gradient.startPoint = CGPointMake(0.0, 0.5);
+  gradient.endPoint = CGPointMake(1.0, 0.5);
+  
+  self.navigationBackground = [[UIView alloc] initWithFrame:gradient.bounds];
+  [self.navigationBackground.layer addSublayer:gradient];
+  
+  
+  [self.navigationBar.layer insertSublayer:self.navigationBackground.layer atIndex:(unsigned int)self.navigationBar.layer.sublayers.count-1];
+  
+  UIImage *titleImage = [UIImage imageNamed:@"nav-logo"];
+  UIImageView *imageView = [[UIImageView alloc] initWithImage:titleImage];
+  imageView.contentMode = UIViewContentModeScaleAspectFit;
+  imageView.frame = CGRectMake(ceil((self.navigationBar.frame.size.width/2.f)-(130.f/2.f)), ceil((self.navigationBar.frame.size.height/2.f)-(13.f/2.f)), 130.f, 13.f);
+  
+  [self.navigationBar.layer insertSublayer:imageView.layer above:self.navigationBackground.layer];
+}
+
+- (void) viewDidLayoutSubviews {
+  [super viewDidLayoutSubviews];
+  
+  if(self.navigationBackground) {
+    self.navigationBackground.frame = CGRectMake(0, 0, self.navigationBar.bounds.size.width, self.navigationBar.bounds.size.height);
+  }
 }
 
 - (void)performAction:(NSString*)performAction actionParams:(NSDictionary*)actionParams bridge:(RCTBridge *)bridge
@@ -242,6 +282,10 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
     else if (title)
     {
       barButtonItem = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStylePlain target:self action:@selector(onButtonPress:)];
+      [barButtonItem setTitleTextAttributes:@{
+                                              NSFontAttributeName: [UIFont systemFontOfSize:12],
+                                              NSForegroundColorAttributeName: [UIColor whiteColor]
+                                              } forState:UIControlStateNormal];
     }
     else continue;
     objc_setAssociatedObject(barButtonItem, &CALLBACK_ASSOCIATED_KEY, button[@"onPress"], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
