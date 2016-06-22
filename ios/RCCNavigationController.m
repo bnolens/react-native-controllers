@@ -58,14 +58,13 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
   // Gradient background
   CAGradientLayer *gradient = [CAGradientLayer layer];
   gradient.frame = CGRectMake(0, -32, self.navigationBar.bounds.size.width, self.navigationBar.bounds.size.height+32);
-  gradient.colors = @[(id)[UIColor colorWithRed:208.f/255.f green:86.f/255.f blue:62.f/255.f alpha:1].CGColor,
-                      (id)[UIColor colorWithRed:156.f/255.f green:55.f/255.f blue:149.f/255.f alpha:1].CGColor];
+  gradient.colors = @[(id)[UIColor colorWithRed:201.f/255.f green:17.f/255.f blue:0.f/255.f alpha:.7f].CGColor,
+                      (id)[UIColor colorWithRed:116.f/255.f green:0.f/255.f blue:96.f/255.f alpha:.7f].CGColor];
   gradient.startPoint = CGPointMake(0.0, 0.5);
   gradient.endPoint = CGPointMake(1.0, 0.5);
   
   self.navigationBackground = [[UIView alloc] initWithFrame:gradient.bounds];
   [self.navigationBackground.layer addSublayer:gradient];
-  
   
   [self.navigationBar.layer insertSublayer:self.navigationBackground.layer atIndex:(unsigned int)self.navigationBar.layer.sublayers.count-1];
   
