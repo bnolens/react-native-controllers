@@ -98,14 +98,14 @@
     
     if (buttonColor)
     {
-      [viewController.tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14 weight:UIFontWeightMedium],
+      [viewController.tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Raleway-Medium" size:14],
                                                           NSForegroundColorAttributeName : buttonColor
                                                           } forState:UIControlStateNormal];
     }
     
     if (selectedButtonColor)
     {
-      [viewController.tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14 weight:UIFontWeightMedium],
+      [viewController.tabBarItem setTitleTextAttributes:@{NSFontAttributeName : [UIFont fontWithName:@"Raleway-Medium" size:14],
                                                           NSForegroundColorAttributeName : selectedButtonColor
                                                           } forState:UIControlStateSelected];
     }
