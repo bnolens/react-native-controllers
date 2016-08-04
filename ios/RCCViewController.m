@@ -7,6 +7,7 @@
 #import "RCCManager.h"
 #import "RCTConvert.h"
 #import "RCCExternalViewControllerProtocol.h"
+#import "RCTEventDispatcher.h"
 
 const NSInteger BLUR_STATUS_TAG = 78264801;
 const NSInteger BLUR_NAVBAR_TAG = 78264802;
@@ -115,6 +116,9 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
 
 - (instancetype)initWithComponent:(NSString *)component passProps:(NSDictionary *)passProps navigatorStyle:(NSDictionary*)navigatorStyle globalProps:(NSDictionary *)globalProps bridge:(RCTBridge *)bridge
 {
+  
+  self.name = component;
+  
   NSMutableDictionary *mergedProps = [NSMutableDictionary dictionaryWithDictionary:globalProps];
   [mergedProps addEntriesFromDictionary:passProps];
   
@@ -179,6 +183,12 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
     [super viewWillAppear:animated];
     
     [self setStyleOnAppear];
+  
+    [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:@"viewControllerEvents" body:@
+     {
+       @"type": @"ViewDidAppear",
+       @"name": self.name ? self.name : @"",
+     }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -186,6 +196,12 @@ const NSInteger TRANSPARENT_NAVBAR_TAG = 78264803;
     [super viewWillDisappear:animated];
     
     [self setStyleOnDisappear];
+  
+    [[[RCCManager sharedInstance] getBridge].eventDispatcher sendAppEventWithName:@"viewControllerEvents" body:@
+     {
+       @"type": @"ViewWillDisappear",
+       @"name": self.name ? self.name : @"",
+     }];
 }
 
 // most styles should be set here since when we pop a view controller that changed them

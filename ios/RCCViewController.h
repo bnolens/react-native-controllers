@@ -6,6 +6,7 @@
 @property (nonatomic) NSMutableDictionary *navigatorStyle;
 @property (nonatomic) BOOL navBarHidden;
 @property (nonatomic) BOOL shouldAutoRotate;
+@property (nonatomic, strong) NSString *name;
 
 + (UIViewController*)controllerWithLayout:(NSDictionary *)layout globalProps:(NSDictionary *)globalProps bridge:(RCTBridge *)bridge;
 
