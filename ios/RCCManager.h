@@ -1,8 +1,11 @@
 #import <Foundation/Foundation.h>
 #import "RCTBridgeModule.h"
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 @interface RCCManager : NSObject
+
+@property (nonatomic, strong) NSURL *bundleURL;
 
 + (instancetype)sharedInstance;
 + (instancetype)sharedIntance;

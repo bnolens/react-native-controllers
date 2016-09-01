@@ -1,12 +1,10 @@
 #import "RCCManager.h"
 #import "RCTBridge.h"
 #import "RCTRedBox.h"
-#import <Foundation/Foundation.h>
 
 @interface RCCManager() <RCTBridgeDelegate>
 @property (nonatomic, strong) NSMutableDictionary *modulesRegistry;
 @property (nonatomic, strong) RCTBridge *sharedBridge;
-@property (nonatomic, strong) NSURL *bundleURL;
 @end
 
 @implementation RCCManager
